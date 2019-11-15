@@ -1,0 +1,37 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    23:06:37 10/30/2019 
+// Design Name: 
+// Module Name:    BancReg 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module BancReg(dirW, clk, dirA, dirB, outA, outB, regW, regR, wData);
+    input [4:0] dirW, dirA, dirB;
+    input clk, regW, regR;
+    output [31:0] outA, outB;
+    input [31:0] wData;
+	 reg [31:0] rData [31:0];
+	 
+	 always @ (negedge clk) begin
+		if(regW)begin
+			rData[dirW] = wData;
+		end
+	 end
+	 assign outA = rData[dirA];
+	 assign outB = rData[dirB];
+		
+	 
+endmodule
