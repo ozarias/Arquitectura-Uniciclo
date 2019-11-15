@@ -1,0 +1,40 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    01:35:44 11/13/2019 
+// Design Name: 
+// Module Name:    Sumador 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module Sumador(
+    input [31:0] PuertoA,
+    input [31:0] PuertoB,
+    output [31:0] Resultado
+    );
+wire carryOut
+wire [31:0] carry
+genvar i;
+generate 
+for(i=0;i<31;i=i+1)
+	begin: generate_31_bit_Adder
+	if(i==0)
+	half_adder f(input1[0], input2[0],answer[0],carry[0]);
+	else
+	full_adder f(input1[i], input2[i], carry[i-1], answer[i], carry[i]);
+	end
+	assign carryOut = carry[31]
+	endgenerate
+	
+endmodule
