@@ -1,0 +1,51 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    01:25:42 11/13/2019 
+// Design Name: 
+// Module Name:    DataMemory 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module DataMemory(clock, Address, WriteData, MemWR, MemRD, MemData);
+    input clock;
+    input [31:0] Address;
+    input [31:0] WriteData;
+    input MemWR;
+    input MemRD;
+    output [31:0] MemData;
+    wire [31:0] MemData;
+	 reg [31:0] RegFile [15:0];
+	 
+	 always @(posedge clock)begin
+		if (MemWR==1'b1)begin
+			RegFile[Address]<=iWriteData;
+		end
+	end
+	assign MemData=(MemRD==1'b1)?RegFile[Address]:0;
+	
+	initial begin // loads in data and instructions of the program 
+		RegFile[0]<=32'd0; //
+		RegFile[1]<=32'd1; //
+		RegFile[2]<=32'd1; //
+		RegFile[3]<=32'd9; //
+		RegFile[4]<=32'd15; // 
+		RegFile[5]<=32'd1; // 
+		RegFile[6]<=32'd1; //
+		RegFile[7]<=32'd9; //
+		RegFile[8]<=32'd15; // 
+		RegFile[9]<=32'd1; // 
+		RegFile[10]<=32'd9; //
+	end
+endmodule
