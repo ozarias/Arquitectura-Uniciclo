@@ -1,0 +1,55 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    00:01:26 10/31/2019 
+// Design Name: 
+// Module Name:    Memory 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+//P18
+
+module InsMemory(clock, Address, iWriteData, iMemWR, iMemRD, iMemData);
+    input clock;
+    input [31:0] Address;
+    input [31:0] iWriteData;
+    input iMemWR;
+    input iMemRD;
+    output [31:0] iMemData;
+    wire [31:0] iMemData;
+	 reg [31:0] RegFile [15:0];
+	 
+	 always @(posedge clock)begin
+		if (iMemWR==1'b1)begin
+			RegFile[Address]<=iWriteData;
+		end
+	end
+	assign iMemData=(iMemRD==1'b1)?RegFile[Address]:0;
+	
+	initial begin // loads in data and instructions of the program 
+	// los registros van de X19-X27 en la posiciones de 19-27
+	//X19 = ZERO
+		RegFile[0]<=32'd0; // 
+		RegFile[1]<=32'd1; // ADD X20 X21 X20
+		RegFile[2]<=32'd1; // SUB X22 X22 X21
+		RegFile[3]<=32'd9; // MOV X23 0X000000000000000010011
+		RegFile[4]<=32'd15; // LDR
+		RegFile[5]<=32'd1; // B
+		RegFile[6]<=32'd1; // STR
+		RegFile[7]<=32'd9; // CMP
+		RegFile[8]<=32'd15; // BL
+		RegFile[9]<=32'd1; // BEQ
+		RegFile[10]<=32'd9; // ADDC
+	end
+endmodule
